@@ -1,6 +1,7 @@
 package com.dreamhome
 
 import android.app.Application
+import com.dreamhome.data.dataModule
 import com.dreamhome.network.networkModule
 import org.koin.core.context.startKoin
 
@@ -12,7 +13,8 @@ class DreamHomeApplication : Application() {
         startKoin {
             modules(
                 listOf(
-                    networkModule
+                    networkModule,
+                    dataModule
                 )
             )
         }
