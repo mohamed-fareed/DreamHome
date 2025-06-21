@@ -2,7 +2,8 @@
 agp = "8.8.0"
 koinAndroid = "4.0.4"
 kotlinxCoroutinesAndroid = "1.8.0"
-retrofit = "3.1.0-SNAPSHOT"
+retrofit = "3.0.0"
+converterGson = "2.9.0"
 kotlin = "1.9.24"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -20,6 +21,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
