@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -21,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -93,8 +95,32 @@ fun Area(
     area: Area
 ) {
     Column(modifier = modifier) {
+        Text(
+            text = "Område",
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.Bold
+        )
+
         PropertyImage(
             imageUrl = area.image
+        )
+
+        Text(
+            text = area.area,
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = "Betyg: ${area.rating}",
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Text(
+            text = "Snittpris: ${area.averagePrice}",
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }
@@ -176,23 +202,28 @@ fun PropertyAddress(
     municipality: String = "Vasastan Odengatan, Stockholm"
 ) {
     Column {
-        Text(address)
+        Text(
+            address,
+            style = MaterialTheme.typography.titleSmall,
+            color = MaterialTheme.colorScheme.onSurface
+        )
 
         Row(
             modifier = modifier,
             horizontalArrangement = Arrangement.Start
         ) {
             Icon(
-                modifier = Modifier
-                    .width(24.dp),
+                modifier = Modifier.width(16.dp),
                 painter = painterResource(id = R.drawable.property_24dp),
                 contentDescription = "Property Type Icon",
                 tint = Purple40
             )
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(4.dp))
             Text(
+                modifier = Modifier.align(Alignment.CenterVertically),
                 text = municipality,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
     }
@@ -209,30 +240,60 @@ fun PropertyDetails(
     Row(
         modifier = modifier
     ) {
-        Text(text = price, textAlign = TextAlign.Start)
+        Text(
+            text = price, textAlign = TextAlign.Start,
+            style = MaterialTheme.typography.bodyMedium
+        )
         Spacer(modifier = Modifier.width(16.dp))
 
-        Text(text = "$livingArea m²")
+        Text(
+            text = "$livingArea m²",
+            style = MaterialTheme.typography.bodyMedium
+        )
         Spacer(modifier = Modifier.width(16.dp))
 
-        Text(text = "$numberOfRooms rum")
+        Text(
+            text = "$numberOfRooms rum",
+            style = MaterialTheme.typography.bodyMedium
+        )
 
         Text(
             modifier = Modifier.weight(1f),
             textAlign = TextAlign.End,
-            text = "$daysOnHemnet dagar"
+            text = "$daysOnHemnet dagar",
+            style = MaterialTheme.typography.bodyMedium
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun PropertyPreview() {
     DreamHomeTheme {
         Column {
             PropertyImage()
             PropertyAddress()
             PropertyDetails()
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun AreaPreview() {
+    DreamHomeTheme {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            Area(
+                area = Area(
+                    type = "Area",
+                    id = "1",
+                    area = "Vasastan",
+                    rating = "4.5/5",
+                    averagePrice = "5 000 000 kr",
+                    image = "https://upload.wikimedia.org/wikipedia/commons/f/f9/Navigat%C3%B8rernes_Hus_01.jpg"
+                ),
+                modifier = Modifier.padding(12.dp)
+            )
         }
     }
 }
