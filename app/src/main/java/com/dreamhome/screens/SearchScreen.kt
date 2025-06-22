@@ -63,8 +63,11 @@ fun SearchScreen(
                 val result = (state as SearchViewModel.State.Success).result
 
                 LazyColumn {
-                    items(result.items.size) {
-                        when (val item = result.items[it]) {
+                    items(
+                        count = result.items.size,
+                        key = { index -> result.items[index].id }
+                    ) { index ->
+                        when (val item = result.items[index]) {
                             is HighlightedProperty -> HighlightedProperty(
                                 modifier = Modifier.padding(12.dp),
                                 property = item,
@@ -231,7 +234,9 @@ fun PropertyImage(
                     else -> Modifier
                 }
             ),
-        contentScale = ContentScale.Crop
+        contentScale = ContentScale.Crop,
+        placeholder = painterResource(R.drawable.placeholder_image),
+        error = painterResource(R.drawable.placeholder_image)
     )
 }
 
@@ -344,8 +349,7 @@ fun AreaPreview() {
                     rating = "4.5/5",
                     averagePrice = "5 000 000 kr",
                     image = "https://upload.wikimedia.org/wikipedia/commons/f/f9/Navigat%C3%B8rernes_Hus_01.jpg"
-                ),
-                modifier = Modifier.padding(12.dp)
+                )
             )
         }
     }
