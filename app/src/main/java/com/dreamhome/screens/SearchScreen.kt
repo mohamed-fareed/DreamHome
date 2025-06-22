@@ -19,12 +19,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.dreamhome.R
 import com.dreamhome.ui.theme.DreamHomeTheme
@@ -32,6 +33,7 @@ import coil3.compose.AsyncImage
 import com.dreamhome.data.entities.Area
 import com.dreamhome.data.entities.HighlightedProperty
 import com.dreamhome.data.entities.Property
+import com.dreamhome.ui.theme.Gold40
 import com.dreamhome.ui.theme.Purple40
 import org.koin.androidx.compose.koinViewModel
 
@@ -57,26 +59,20 @@ fun SearchScreen(
                 LazyColumn {
                     items(result.items.size) {
                         when (val item = result.items[it]) {
-                            is HighlightedProperty -> {
-                                HighlightedProperty(
-                                    modifier = Modifier.padding(12.dp),
-                                    property = item
-                                )
-                            }
+                            is HighlightedProperty -> HighlightedProperty(
+                                modifier = Modifier.padding(12.dp),
+                                property = item
+                            )
 
-                            is Property -> {
-                                Property(
-                                    modifier = Modifier.padding(12.dp),
-                                    property = item
-                                )
-                            }
+                            is Property -> Property(
+                                modifier = Modifier.padding(12.dp),
+                                property = item
+                            )
 
-                            is Area -> {
-                                Area(
-                                    modifier = Modifier.padding(12.dp),
-                                    area = item
-                                )
-                            }
+                            is Area -> Area(
+                                modifier = Modifier.padding(12.dp),
+                                area = item
+                            )
                         }
                     }
                 }
@@ -96,13 +92,14 @@ fun Area(
 ) {
     Column(modifier = modifier) {
         Text(
-            text = "Område",
+            text = stringResource(R.string.title_area),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )
 
         PropertyImage(
-            imageUrl = area.image
+            imageUrl = area.image,
+            height = 200.dp
         )
 
         Text(
@@ -111,13 +108,13 @@ fun Area(
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = "Betyg: ${area.rating}",
+            text = stringResource(R.string.area_rating, area.rating),
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Text(
-            text = "Snittpris: ${area.averagePrice}",
+            text = stringResource(R.string.area_average_price, area.averagePrice),
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -173,19 +170,20 @@ fun HighlightedProperty(
 @Composable
 fun PropertyImage(
     modifier: Modifier = Modifier,
-    imageUrl: String = "https://upload.wikimedia.org/wikipedia/commons/f/f9/Navigat%C3%B8rernes_Hus_01.jpg",
-    isHighlighted: Boolean = false
+    imageUrl: String,
+    isHighlighted: Boolean = false,
+    height: Dp = 150.dp
 ) {
     AsyncImage(
         model = imageUrl,
         contentDescription = "Property Image",
         modifier = modifier
-            .height(150.dp)
+            .height(height)
             .then(
                 when {
                     isHighlighted -> Modifier.border(
                         width = 2.dp,
-                        color = Color(0xFFFFD700),
+                        color = Gold40,
                     )
 
                     else -> Modifier
@@ -198,8 +196,8 @@ fun PropertyImage(
 @Composable
 fun PropertyAddress(
     modifier: Modifier = Modifier,
-    address: String = "Hagagatan 1, 2tr",
-    municipality: String = "Vasastan Odengatan, Stockholm"
+    address: String,
+    municipality: String
 ) {
     Column {
         Text(
@@ -232,10 +230,10 @@ fun PropertyAddress(
 @Composable
 fun PropertyDetails(
     modifier: Modifier = Modifier,
-    price: String = "6 150 000 kr",
-    livingArea: Float = 71f,
-    numberOfRooms: Float = 2.5f,
-    daysOnHemnet: Int = 11
+    price: String,
+    livingArea: Float,
+    numberOfRooms: Float,
+    daysOnHemnet: Int
 ) {
     Row(
         modifier = modifier
@@ -247,20 +245,20 @@ fun PropertyDetails(
         Spacer(modifier = Modifier.width(16.dp))
 
         Text(
-            text = "$livingArea m²",
+            text = stringResource(R.string.property_living_area, livingArea),
             style = MaterialTheme.typography.bodyMedium
         )
         Spacer(modifier = Modifier.width(16.dp))
 
         Text(
-            text = "$numberOfRooms rum",
+            text = stringResource(R.string.property_num_of_rooms, numberOfRooms),
             style = MaterialTheme.typography.bodyMedium
         )
 
         Text(
             modifier = Modifier.weight(1f),
             textAlign = TextAlign.End,
-            text = "$daysOnHemnet dagar",
+            text = stringResource(R.string.property_days_on_hemnet, daysOnHemnet),
             style = MaterialTheme.typography.bodyMedium
         )
     }
@@ -271,9 +269,22 @@ fun PropertyDetails(
 fun PropertyPreview() {
     DreamHomeTheme {
         Column {
-            PropertyImage()
-            PropertyAddress()
-            PropertyDetails()
+            PropertyImage(
+                imageUrl = "https://upload.wikimedia.org/wikipedia/commons/f/f9/Navigat%C3%B8rernes_Hus_01.jpg",
+                isHighlighted = true
+            )
+
+            PropertyAddress(
+                address = "Hagagatan 1, 2tr",
+                municipality = "Vasastan Odengatan, Stockholm"
+            )
+
+            PropertyDetails(
+                price = "6 150 000 kr",
+                livingArea = 71f,
+                numberOfRooms = 2.5f,
+                daysOnHemnet = 11
+            )
         }
     }
 }

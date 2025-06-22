@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">DreamHome</string>
+    <string name="app_name">Drömhem</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_area">Område</string>
+    <string name="area_rating">Betyg: %1$s</string>
+    <string name="area_average_price">Snittpris: %1$s</string>
+    <string name="property_num_of_rooms">%1$s rum</string>
+    <string name="property_living_area">%1$s m²</string>
+    <string name="property_days_on_hemnet">%1$s dagar</string>
 </resources>

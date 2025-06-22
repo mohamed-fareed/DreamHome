@@ -13,3 +13,4 @@ val DarkSecondary = Color(0xFF80CBC4)
 val DarkTertiary = Color(0xFF004D40)
 
 val Purple40 = Color(0xFF6650a4)
+val Gold40 = Color(0xFFBFA300)
