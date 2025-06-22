@@ -10,7 +10,7 @@ val networkModule = module {
         val gson = get<Gson>()
 
         Retrofit.Builder()
-            .baseUrl("https://dreamhome.free.beeceptor.com/api/")
+            .baseUrl("https://6c90f0a8-1a19-4139-9413-95b889ecfb19.mock.pstmn.io/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
