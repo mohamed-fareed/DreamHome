@@ -17,6 +17,8 @@ activityCompose = "1.10.1"
 composeBom = "2024.04.01"
 coilCompose = "3.0.0"
 coilNetworkOkhttp = "3.0.0"
+mockitoCoreVersion = "5.17.0"
+mockitoKotlin = "5.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -26,6 +28,7 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesAndroid" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinAndroid" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koinAndroid" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
@@ -43,6 +46,8 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilNetworkOkhttp" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
+mockito-core-v540 = { module = "org.mockito:mockito-core", version.ref = "mockitoCoreVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
