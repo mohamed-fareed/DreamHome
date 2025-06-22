@@ -1,6 +1,7 @@
 package com.dreamhome.screens
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -35,11 +37,15 @@ import com.dreamhome.data.entities.HighlightedProperty
 import com.dreamhome.data.entities.Property
 import com.dreamhome.ui.theme.Gold40
 import com.dreamhome.ui.theme.Purple40
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SearchScreen(
     modifier: Modifier = Modifier,
+    snackbarHostState: SnackbarHostState,
+    coroutineScope: CoroutineScope,
     viewModel: SearchViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -61,17 +67,41 @@ fun SearchScreen(
                         when (val item = result.items[it]) {
                             is HighlightedProperty -> HighlightedProperty(
                                 modifier = Modifier.padding(12.dp),
-                                property = item
+                                property = item,
+                                onClick = {
+                                    coroutineScope.launch {
+                                        snackbarHostState.currentSnackbarData?.dismiss()
+                                        snackbarHostState.showSnackbar(
+                                            message = "This is a highlighted property: ${item.streetAddress}"
+                                        )
+                                    }
+                                }
                             )
 
                             is Property -> Property(
                                 modifier = Modifier.padding(12.dp),
-                                property = item
+                                property = item,
+                                onClick = {
+                                    coroutineScope.launch {
+                                        snackbarHostState.currentSnackbarData?.dismiss()
+                                        snackbarHostState.showSnackbar(
+                                            message = "This property is located at: ${item.streetAddress}"
+                                        )
+                                    }
+                                }
                             )
 
                             is Area -> Area(
                                 modifier = Modifier.padding(12.dp),
-                                area = item
+                                area = item,
+                                onClick = {
+                                    coroutineScope.launch {
+                                        snackbarHostState.currentSnackbarData?.dismiss()
+                                        snackbarHostState.showSnackbar(
+                                            message = "${item.area} is a great choice!"
+                                        )
+                                    }
+                                }
                             )
                         }
                     }
@@ -88,9 +118,13 @@ fun SearchScreen(
 @Composable
 fun Area(
     modifier: Modifier = Modifier,
-    area: Area
+    area: Area,
+    onClick: () -> Unit = {}
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier
+            .clickable { onClick() }
+    ) {
         Text(
             text = stringResource(R.string.title_area),
             style = MaterialTheme.typography.headlineMedium,
@@ -125,9 +159,13 @@ fun Area(
 @Composable
 fun Property(
     modifier: Modifier = Modifier,
-    property: Property
+    property: Property,
+    onClick: () -> Unit = {}
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier
+            .clickable { onClick() }
+    ) {
         PropertyImage(
             imageUrl = property.image
         )
@@ -147,9 +185,13 @@ fun Property(
 @Composable
 fun HighlightedProperty(
     modifier: Modifier = Modifier,
-    property: HighlightedProperty
+    property: HighlightedProperty,
+    onClick: () -> Unit = {}
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier
+            .clickable { onClick() }
+    ) {
         PropertyImage(
             imageUrl = property.image,
             isHighlighted = true
