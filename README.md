@@ -1,5 +1,9 @@
 # DreamHome
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7f63070d-c664-47ff-8703-3c30fab4cf10" width="300"/>
+</p>
+
 ## Overview
 
 This project implements a scrollable result list for property searches, inspired by the Hemnet app.
