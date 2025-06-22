@@ -19,8 +19,8 @@ data class Property(
     val municipality: String,
     override val area: String,
     val daysOnHemnet: Int,
-    val livingArea: Int,
-    val numberOfRooms: Int,
+    val livingArea: Float,
+    val numberOfRooms: Float,
     val streetAddress: String,
     override val image: String
 ) : SearchItem()
@@ -33,8 +33,8 @@ data class HighlightedProperty(
     val municipality: String,
     override val area: String,
     val daysOnHemnet: Int,
-    val livingArea: Int,
-    val numberOfRooms: Int,
+    val livingArea: Float,
+    val numberOfRooms: Float,
     val streetAddress: String,
     override val image: String
 ) : SearchItem()
